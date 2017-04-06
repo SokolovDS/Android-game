@@ -2,10 +2,14 @@
 
 import socket
 
+serv_ip ='192.168.1.50' # ip сервера внутри сети
+                        #Для теста введите ip компьютера на котором
+                        #расположен сервер внутри вашей сети
+
 c_sock = socket.socket(socket.AF_INET,
                             socket.SOCK_STREAM)
 
-c_sock.connect(('192.168.1.50', 8080))
+c_sock.connect((serv_ip, 8080))
 
 while True:
     c_dt = input('Q: ')
