@@ -7,7 +7,7 @@ from flask import Flask, request, json
 #import math
 
 #Файлы дополнительных скриптов
-import distantion
+import distance
 
 app = Flask(__name__)
 
@@ -21,7 +21,7 @@ def send_position():
 
     chest_position = '56.843927|60.653151'
 
-    dist = distantion.calc(chest_position, phone_position)
+    dist = distance.calc(chest_position, phone_position)
 
     return json.dumps(dist)
 
