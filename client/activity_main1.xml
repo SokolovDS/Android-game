@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nastya.myapplication.MainActivity">
+
+    <Button
+        android:id="@+id/button8"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="281dp"
+        android:layout_height="68dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="182dp" />
+
+    <Button
+        android:id="@+id/button9"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="269dp"
+        android:layout_height="50dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:text="ID ПОЛЬЗОВАТЕЛЯ"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="23dp"
+        tools:layout_editor_absoluteY="190dp" />
+
+    <Button
+        android:id="@+id/button10"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="268dp"
+        android:layout_height="51dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:backgroundTint="@android:drawable/dialog_holo_dark_frame"
+        android:text="ID ПОЛЬЗОВАТЕЛЯ"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="124dp" />
+
+    <Button
+        android:id="@+id/button11"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="283dp"
+        android:layout_height="66dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:backgroundTint="@android:color/holo_red_dark"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="116dp" />
+
+    <Button
+        android:id="@+id/button6"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="178dp"
+        android:layout_height="59dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:backgroundTint="@android:color/darker_gray"
+        tools:layout_editor_absoluteX="111dp"
+        tools:layout_editor_absoluteY="425dp" />
+
+    <Button
+        android:id="@+id/button5"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="183dp"
+        android:layout_height="75dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        tools:layout_editor_absoluteX="194dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="165dp"
+        android:layout_height="59dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:text="ЕРЕТИК"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="203dp"
+        tools:layout_editor_absoluteY="24dp"
+        and/>
+
+    <Button
+        android:id="@+id/button4"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="178dp"
+        android:layout_height="66dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:text="ГОТОВ"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="429dp" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="176dp"
+        android:layout_height="59dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:backgroundTint="@android:drawable/dialog_holo_dark_frame"
+        android:text="ИНКВИЗИТОР"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="28dp" />
+
+    <Button
+        android:id="@+id/button3"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="191dp"
+        android:layout_height="74dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:backgroundTint="@android:color/holo_red_dark"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="19dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="271dp"
+        android:layout_height="133dp"
+        tools:layout_editor_absoluteX="314dp"
+        tools:layout_editor_absoluteY="151dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="271dp"
+        android:layout_height="133dp"
+        tools:layout_editor_absoluteX="314dp"
+        tools:layout_editor_absoluteY="83dp" />
+
+</android.support.constraint.ConstraintLayout>
