@@ -61,9 +61,103 @@ def get_db(): #Подключение к бд если его ещё не был
 
 
 
+def email_search(email): #Поиск почты в базе данных
+
+    ret_var = ''
+    local_spisok = []
+    email = str(email)
+
+    if '@' in email:
+
+        db = get_db()
+        cur = db.execute('select email, user_id from users order by id desc')
+        all_users = cur.fetchall()
+
+        for var in all_users:
+
+            if email in var:
+                ret_var = var[1]
+                local_spisok.clear()
+                break
+
+            else:
+                local_spisok.append(var[1])
+
+
+        else:
+
+            us_id = randrange(10000, 99999)
+            us_id = str(us_id)
+
+            while us_id in local_spisok:
+
+                us_id = randrange(10000, 99999)
+                us_id = str(us_id)
+
+            ret_var = us_id
+
+            db.execute('insert into users (email, user_id) values ( "{value_1}", "{value_2}" )'.format(value_1 = email, value_2 = us_id) )
+            db.commit()
+
+
+    else:
+        ret_var = 'Error'
+
+    return ret_var
+
+
+
+def id_search(idd): #Поиск id базе данных
+
+    idd = str(idd)
+
+    if idd.isdigit() == True:
+
+        db = get_db()
+        cur = db.execute('select email, user_id from users order by id desc')
+        all_users = cur.fetchall()
+
+        for var in all_users:
+
+            if idd in var:
+                ret_var = True
+                break
+
+        else:
+            ret_var = False
+
+
+    else:
+        ret_var = 'Error'
+
+    return ret_var
+
+
+def spisok_list(local_spisok):
+
+    ret_var = ''
+
+    if local_spisok != []:
+
+        for var in range(len(local_spisok)):
+
+            if var_2 == len(local_spisok) - 1 or var_2 == 0:
+                ret_var = ret_var + local_spisok[var_2]
+
+            elif var_2 != len(local_spisok) - 1:
+                ret_var = ret_var + local_spisok[var_2] + '|'
+
+
+    return ret_var
+
 #------------------------------------------------------
 
 
+global coord_dct; coord_dct = {}
+global cur_users; cur_users = {}
+global cur_ses; cur_ses = {}
+
+# -----------------------------------------------------
 
 @app.teardown_appcontext
 
@@ -74,15 +168,21 @@ def close_db(error): #Разрыв соеденения с базой данно
 
 
 
-@app.route('/show_users') #Показ базы данных по ссылке, использовалась для тестов, неактивна
+@app.route('/show_users') #Показ базы данных по ссылке
 
 def show_users():
+
+    local_dct = {}
 
     db = get_db()
     cur = db.execute('select email, user_id from users order by id desc')
     users = cur.fetchall()
 
-    #return render_template('show_users.html', users=users)
+    for var in users:
+        local_dct[var[1]] = var[0]
+
+
+    return json.dumps(local_dct)
 
 
 
@@ -91,42 +191,69 @@ def show_users():
 def send_email():
 
     get_email = request.args['email']
-    get_email = str(get_email)
 
-    spisok_id = []
+    ret_var = ''
 
+    value = email_search(get_email)
 
-    db = get_db()
-    cur = db.execute('select * from users')
-    all_users = cur.fetchone()
-
-    while all_users is not None:
-
-        if str(all_users[1]) == get_email:
-            us_id = str(all_users[2])
-            break
-
-        spisok_id.append(str(all_users[2]))
-
-        all_users = cur.fetchone()
-
+    if value.isdigit() == True:
+        ret_var = value
+        cur_users[ret_var] = ''
 
     else:
-        us_id = randrange(10000, 99999)
-        us_id = str(us_id)
-        while us_id in spisok_id:
-            us_id = randrange(10000, 99999)
-            us_id = str(us_id)
+        ret_var = 'Error'
 
 
-        db.execute('insert into users (email, user_id) values ( "{value_1}", "{value_2}" )'.format(value_1 = get_email, value_2 = us_id) )
-        db.commit()
+    return json.dumps(ret_var)
 
-    if us_id == '':
-        us_id = 'Error'
 
-    return json.dumps(us_id)
+@app.route('/get_cur_users', methods = ['GET']) #Кол - во текущих игроков в сесси
 
+def get_cur_users():
+
+    get_id = request.args['idd']
+
+    ret_var = ''
+
+    value = id_search(get_id)
+
+    if value == True:
+        ret_var = len(cur_users)
+        ret_var = str(ret_var)
+
+    else:
+        ret_var = 'Error'
+
+    return json.dumps(ret_var)
+
+
+@app.route('/get_cur_ses', methods = ['GET']) #Список всех созданных сессий
+
+def get_cur_ses():
+
+    get_id = request.args['idd']
+
+    ret_var = ''
+    local_spisok = []
+
+    value = id_search(get_id)
+
+    if value == True:
+
+        if cur_ses != {}:
+
+            for var_1 in cur_ses:
+                local_spisok.append(str(var_1))
+
+            ret_var = spisok_list(local_spisok)
+
+        else:
+            ret_var = '0'
+
+    else:
+        ret_var = 'Error'
+
+    return json.dumps(ret_var)
 
 
 @app.route('/get_coord', methods = ['GET']) #Получение значений координат других участников, по своему id
@@ -135,54 +262,34 @@ def get_coord():
 
     get_id = request.args['idd']
     get_coord = request.args['coord']
+
     get_id = str(get_id)
     get_coord = str(get_coord)
 
-    dct = {}
+    ret_var = ''
+    local_dct = {}
     local_spisok = []
-    ret_var = 'Error'
 
-    db = get_db()
-    cur = db.execute('select * from users')
-    all_users = cur.fetchone()
+    value = id_search(get_id)
 
-    while all_users is not None:
+    if value == True:
 
-        if str(all_users[2]) == str(get_id):
+        coord_dct[get_id] = get_coord
 
-            file = open('session.txt', 'r')
-            text = file.read()
-            spisok = text.split()
-            file.close()
+        local_dct = coord_dct.copy()
+        local_dct.pop(get_id, None)
 
-            for var_1 in range (0, len(spisok), 2):
-                dct[spisok[var_1]] = spisok[var_1 + 1]
+        for var in local_dct:
+            local_spisok.append(local_dct.get(var))
 
-            dct[get_id] = get_coord
+        ret_var = spisok_list(local_spisok)
 
-            file = open('session.txt', 'w')
-            for var_2 in dct:
-                file.write(var_2 + ' ' + dct.get(var_2) + '\n')
 
-            file.close()
-
-            dct.pop(get_id)
-
-            ret_var = ''
-
-            for var_3 in dct:
-                local_spisok.append(dct.get(var_3))
-
-            for var_4 in local_spisok:
-                ret_var = ret_var + var_4 + '|'
-
-            break
-
-        all_users = cur.fetchone()
-
-    else:
+    elif value == False:
         ret_var = 'Error'
 
+    else:
+        ret_var = None
 
     return json.dumps(ret_var)
 
@@ -195,26 +302,17 @@ def logout():
     get_id = request.args['idd']
     get_id = str(get_id)
 
-    dct = {}
 
-    file = open('session.txt', 'r')
-    text = file.read()
-    spisok = text.split()
-    file.close()
-
-    for var_1 in range (0, len(spisok), 2):
-        dct[spisok[var_1]] = spisok[var_1 + 1]
-
-    dct.pop(get_id, None)
-
-    file = open('session.txt', 'w')
-    for var_2 in dct:
-        file.write(var_2 + ' ' + dct.get(var_2) + '\n')
-
-    file.close()
+    return json.dumps('True')
 
 
+@app.route('/clear_coord', methods = ['GET'])
 
+def clear_coord():
+
+    coord_dct.clear()
+
+    return json.dumps(coord_dct)
 
 if __name__ == '__main__':
     app.run()
