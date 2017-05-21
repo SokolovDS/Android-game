@@ -1,6 +1,7 @@
 package com.example.daniil.mnogochlenapp;
 
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,5 +44,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng UrFU = new LatLng(56.844034, 60.653389);
         mMap.addMarker(new MarkerOptions().position(UrFU).title("Marker in UrFU"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(UrFU));
-    }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        }
 }
