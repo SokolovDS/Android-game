@@ -1,4 +1,4 @@
-package com.example.daniil.mnogochlenapp;
+package com.example.daniil.catchme;
 
 import org.junit.Test;
 

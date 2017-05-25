@@ -1,7 +1,6 @@
-package com.example.daniil.mnogochlenapp;
+package com.example.daniil.catchme;
 
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -11,7 +10,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class maps extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -41,11 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
-        LatLng UrFU = new LatLng(56.844034, 60.653389);
-        mMap.addMarker(new MarkerOptions().position(UrFU).title("Marker in UrFU"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(UrFU));
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-        }
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
 }

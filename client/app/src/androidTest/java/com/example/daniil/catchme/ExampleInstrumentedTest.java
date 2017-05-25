@@ -1,4 +1,4 @@
-package com.example.daniil.mnogochlenapp;
+package com.example.daniil.catchme;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.daniil.mnogochlenapp", appContext.getPackageName());
+        assertEquals("com.example.daniil.catchme", appContext.getPackageName());
     }
 }
