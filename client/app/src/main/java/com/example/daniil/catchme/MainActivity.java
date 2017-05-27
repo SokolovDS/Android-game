@@ -12,20 +12,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button mapBtn = (Button) findViewById(R.id.toMap);
-        mapBtn.setOnClickListener(onClickListener);
+
+        //Подключаем нажатие на кнопки
+        Button findSessionBtn = (Button) findViewById(R.id.FindSession);
+        findSessionBtn.setOnClickListener(onClickListener);
+        Button createSessionBtn = (Button) findViewById(R.id.CreateSession);
+        createSessionBtn.setOnClickListener(onClickListener);
 
     }
 
+    //Трекер нажатий
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
 
-                case R.id.toMap:
-                    Intent intent = new Intent(MainActivity.this, maps.class);
-                    startActivity(intent);
+                case R.id.FindSession:
+                    Intent fSession = new Intent(MainActivity.this, findSession.class);
+                    startActivity(fSession);
                     break;
+                case R.id.CreateSession:
+                    Intent cSession = new Intent(MainActivity.this, createSession.class);
+                    startActivity(cSession);
+                    break;
+
 
                 default:
                     break;
