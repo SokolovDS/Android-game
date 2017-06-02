@@ -68,6 +68,6 @@
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
-        android:text=""/>
+        android:text="111"/>
 
 </RelativeLayout>
