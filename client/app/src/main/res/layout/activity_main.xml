@@ -42,7 +42,7 @@
         android:layout_marginBottom="33dp" />
 
     <EditText
-        android:id="@+id/NickName"
+        android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -52,21 +52,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="27dp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/NickName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
-        android:text="TextView" />
-
     <Button
-        android:id="@+id/txtBtn"
+        android:id="@+id/NickBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/NickName"
-        android:layout_toEndOf="@+id/NickName"
-        android:layout_toRightOf="@+id/NickName"
-        android:text="Ок" />
+        android:layout_alignBottom="@+id/editText"
+        android:layout_toEndOf="@+id/editText"
+        android:layout_toRightOf="@+id/editText"
+        android:text="OK" />
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:text=""/>
+
 </RelativeLayout>
