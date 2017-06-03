@@ -31,14 +31,15 @@ public class MainActivity extends AppCompatActivity {
         //остальные кнопки
         Button findSessionBtn = (Button) findViewById(R.id.FindSession);
         findSessionBtn.setOnClickListener(onClickListener);
-        Button createSessionBtn = (Button) findViewById(R.id.CreateSession);
-        createSessionBtn.setOnClickListener(onClickListener);
+        /*Button createSessionBtn = (Button) findViewById(R.id.CreateSession);
+        createSessionBtn.setOnClickListener(onClickListener);*/
     }
 
     //Трекер нажатий
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
         EditText eText;
         TextView tvInfo;
+        String uid;
         @Override
         public void onClick(View v) {
             eText = (EditText) findViewById(R.id.editText);
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                     // TODO Auto-generated method stub
                     tvInfo.setText("Response => "+response);
+                    uid=response;
                 }
             }, new Response.ErrorListener() {
 
@@ -68,9 +70,12 @@ public class MainActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.NickBTN:
                     queue.add(stringRequest);
+
                     break;
                 case R.id.FindSession:
-                    Intent fSession = new Intent(MainActivity.this, findSession.class);
+                    Intent fSession = new Intent(MainActivity.this, maps.class);
+                    fSession.putExtra("uid", uid);
+
                     startActivity(fSession);
                     break;
                 /*case R.id.CreateSession:

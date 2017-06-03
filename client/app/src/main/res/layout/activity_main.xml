@@ -15,10 +15,9 @@
         android:text="Найти сессию"
         tools:layout_editor_absoluteX="147dp"
         tools:layout_editor_absoluteY="265dp"
-        android:layout_marginBottom="26dp"
-        android:layout_above="@+id/exit"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
-
+<!--
     <Button
         android:id="@+id/CreateSession"
         android:layout_width="200dp"
@@ -40,7 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="33dp" />
-
+-->
     <EditText
         android:id="@+id/editText"
         android:layout_width="wrap_content"
@@ -48,18 +47,19 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Your Nickname"
+        android:layout_marginTop="28dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp" />
+        android:layout_alignRight="@+id/FindSession"
+        android:layout_alignEnd="@+id/FindSession" />
 
     <Button
         android:id="@+id/NickBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_toEndOf="@+id/editText"
+        android:text="OK"
+        android:layout_alignTop="@+id/editText"
         android:layout_toRightOf="@+id/editText"
-        android:text="OK" />
+        android:layout_toEndOf="@+id/editText" />
 
     <TextView
         android:id="@+id/tvInfo"
