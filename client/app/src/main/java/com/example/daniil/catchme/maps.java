@@ -9,6 +9,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,26 +41,20 @@ public class maps extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        Button getCoords = (Button)findViewById(R.id.getCoords);
+        getCoords.setOnClickListener(onClickListener);
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+    String uid;
+    double latitude;
+    double longitude;
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        double latitude = 0;
-        double longitude = 0;
-
         Intent getuid = getIntent();
-        String uid = getuid.getStringExtra("uid");
+        uid = getuid.getStringExtra("uid");
+        latitude=0;
+        longitude=0;
         Toast toast = Toast.makeText(getApplicationContext(), uid, Toast.LENGTH_SHORT);
         toast.show();
 
@@ -68,6 +65,8 @@ public class maps extends FragmentActivity implements OnMapReadyCallback {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
+            //Определение местоположения
+
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             Criteria criteria = new Criteria();
             String provider = locationManager.getBestProvider(criteria, true);
@@ -80,37 +79,51 @@ public class maps extends FragmentActivity implements OnMapReadyCallback {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
             }
+            //---------------------------------
+
         } else {
             // Show rationale and request permission.
         }
-
-
-        //Определение местоположения
-
-        //---------------------------------
-        //Отправка запроса на получение расстояния
-        RequestQueue queue = Volley.newRequestQueue(maps.this);
-        String url = "http://artkholl.pythonanywhere.com/get_coord?idd="+uid.substring(1,6)+"&coord="+latitude+"$"+longitude;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // TODO Auto-generated method stub
-                Toast toast = Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO Auto-generated method stub
-                Toast toast = Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT);
-                toast.show();
-
-            }
-        });
-        queue.add(stringRequest);
-
-        //----------------------------
     }
 
+    //----------------------------
+    private final View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final TextView myTextView = (TextView) findViewById(R.id.cooords);
+
+            //Отправка запроса на получение расстояния
+            RequestQueue queue = Volley.newRequestQueue(maps.this);
+            String url = "http://artkholl.pythonanywhere.com/get_coord?idd="+uid.substring(1,6)+"&coord="+latitude+"$"+longitude;
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // TODO Auto-generated method stub
+                    //Toast toast = Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT);
+                    //toast.show();
+                    myTextView.setText(response);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // TODO Auto-generated method stub
+                    //Toast toast = Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT);
+                    //toast.show();
+
+                }
+            });
+
+            switch (v.getId()) {
+                case R.id.getCoords: {
+                    //TextView cooords = (TextView)findViewById(R.id.cooords);
+                    //myTextView.setText("sas");
+                    queue.add(stringRequest);
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+    };
 }

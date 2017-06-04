@@ -16,4 +16,22 @@
     android:layout_height="match_parent"
     tools:context="com.example.daniil.catchme.maps" />
 
+    <TextView
+        android:id="@+id/cooords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="TextView"
+        android:background="#fff"
+        />
+
+    <Button
+        android:id="@+id/getCoords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Узнать расстояние"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
